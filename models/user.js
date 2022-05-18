@@ -23,9 +23,17 @@ const User = db.define('user',{
         type: DataTypes.ENUM('guest', 'user', 'admin'),
         defaultValue: 'user'
     },
-    isMember: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
+    memberType: {
+        type: DataTypes.ENUM('guest', 'month', 'year'),
+        defaultValue: 'guest'
+    },
+    memeberActiveDate: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    memeberExpireDate: {
+        type: DataTypes.DATE,
+        allowNull: true
     },
     resetToken: {
         type: DataTypes.STRING,
