@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport(sendgridTransport({
   }
 }))
 
-router.get('/test', (req,res)=>res.send('Do you want to Download a Trial???'));
+router.get('/test', (req,res)=>res.send('Do you want to Download a Trial????'));
 
 router.post("/register", async (req, res) => {
     try {
