@@ -9,18 +9,8 @@ const sendgridTransport = require('nodemailer-sendgrid-transport');
 const crypto = require("crypto");
 const validateSession = require("../middleware/validateSession");
 
-// const transporter = nodemailer.createTransport({
-//   host: 'localhost',
-//   port: 1025,
-//   auth: {
-//       user: 'project.1',
-//       pass: 'secret.1'
-//   }
-// });
-
 const transporter = nodemailer.createTransport(sendgridTransport({
   auth: {
-  //     api_key: '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'
       api_key: process.env.SENDGRID_KEY
   }
 }))
