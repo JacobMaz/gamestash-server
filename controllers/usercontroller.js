@@ -48,12 +48,12 @@ router.post("/register", async (req, res) => {
         name: 'My Games',
         userId: newUser.id
       });
-      // transporter.sendMail({
-      //   to: newUser.email,
-      //   from: "jmgamingcompany@gmail.com",
-      //   subject: "Welcome To Game Stash App",
-      //   html: "<h1>Welcome Homie!</h1>",
-      // }).catch(err=>console.log(err));
+      transporter.sendMail({
+        to: newUser.email,
+        from: "jmgamingcompany@gmail.com",
+        subject: "Welcome To Game Stash App",
+        html: "<h1>Welcome Homie!</h1>",
+      }).catch(err=>console.log(err));
     } catch (error) {
       if (error instanceof UniqueConstraintError) {
         res.status(409).json({
