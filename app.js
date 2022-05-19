@@ -13,7 +13,7 @@ app.use('/category', controllers.categorycontroller);
 db.authenticate()
 .then(()=>db.sync())
 .then(()=>{
-    app.listen(process.env.PORT || 3000, ()=> console.log(`[SERVER:] App is listening on Port ${process.env.PORT}`))
+    app.listen(process.env.PORT, ()=> console.log(`[SERVER:] App is listening on Port ${process.env.PORT}`))
 })
 .catch((err)=>{
     console.log('[SERVER:] Server Crashed');
