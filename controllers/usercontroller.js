@@ -4,16 +4,16 @@ const { User, Category } = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { UniqueConstraintError } = require("sequelize/lib/errors");
-const nodemailer = require('nodemailer');
-const sendgridTransport = require('nodemailer-sendgrid-transport');
+// const nodemailer = require('nodemailer');
+// const sendgridTransport = require('nodemailer-sendgrid-transport');
 const crypto = require("crypto");
 const validateSession = require("../middleware/validateSession");
 
-const transporter = nodemailer.createTransport(sendgridTransport({
-  auth: {
-      api_key: process.env.SENDGRID_KEY
-  }
-}))
+// const transporter = nodemailer.createTransport(sendgridTransport({
+//   auth: {
+//       api_key: process.env.SENDGRID_KEY
+//   }
+// }))
 
 router.get('/test', (req,res)=>res.send('Do you want to Download a Trial????'));
 
@@ -38,12 +38,12 @@ router.post("/register", async (req, res) => {
         name: 'My Games',
         userId: newUser.id
       });
-      transporter.sendMail({
-        to: newUser.email,
-        from: "jmgamingcompany@gmail.com",
-        subject: "Welcome To Game Stash App",
-        html: "<h1>Welcome Homie!</h1>",
-      }).catch(err=>console.log(err));
+      // transporter.sendMail({
+      //   to: newUser.email,
+      //   from: "jmgamingcompany@gmail.com",
+      //   subject: "Welcome To Game Stash App",
+      //   html: "<h1>Welcome Homie!</h1>",
+      // }).catch(err=>console.log('[EMAIL ERROR]:', err));
     } catch (error) {
       if (error instanceof UniqueConstraintError) {
         res.status(409).json({
@@ -125,23 +125,25 @@ router.post("/resetpassword", (req, res) => {
       }
       user.resetToken = token;
       user.expireToken = Date.now() + 3600000;
-      user.save().then(() => {
-        transporter.sendMail({
-          to: user.email,
-          from: "jmgamingcompany@gmail.com",
-          subject: "Reset Password Request",
-          html: `
-                                <h1>Password Reset Requested</h1>
-                                <p>There was a request to reset your password. Use the link to reset your password</p>
-                                <h4>Click this <a href="http://localhost:3000/resetpassword/${token}">LINK</a>to reset your password</h4>
-                                `,
-        });
-        res.json({
-          status: 'SUCCESS',
-          success: 'Check Your Email To Reset Password',
-          error: ''
-        });
-      });
+      user.save()
+      // .then(() => {
+      //   transporter.sendMail({
+      //     to: user.email,
+      //     from: "jmgamingcompany@gmail.com",
+      //     subject: "Reset Password Request",
+      //     html: `
+      //                           <h1>Password Reset Requested</h1>
+      //                           <p>There was a request to reset your password. Use the link to reset your password</p>
+      //                           <h4>Click this <a href="http://localhost:3000/resetpassword/${token}">LINK</a>to reset your password</h4>
+      //                           `,
+      //   }
+      //   );
+      //   res.json({
+      //     status: 'SUCCESS',
+      //     success: 'Check Your Email To Reset Password',
+      //     error: ''
+      //   });
+      // });
     });
   });
 });
